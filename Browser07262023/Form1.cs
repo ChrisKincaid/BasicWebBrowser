@@ -15,6 +15,7 @@ namespace Browser07262023
         public Form1()
         {
             InitializeComponent();
+            webBrowser1.ScriptErrorsSuppressed = true;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -31,8 +32,8 @@ namespace Browser07262023
         {
             webBrowser1.Navigate(textBox1.Text);
             toolStripStatusLabel1.Text = "Loading...";
-            button1.Enabled = false;
-            textBox1.Enabled = false;
+            //button1.Enabled = false;
+            //textBox1.Enabled = false;
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -45,8 +46,8 @@ namespace Browser07262023
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            button1.Enabled = true;
-            textBox1.Enabled = true;
+            //button1.Enabled = true;
+            //textBox1.Enabled = true;
             toolStripStatusLabel1.Text = "Done";
         }
 
@@ -55,6 +56,15 @@ namespace Browser07262023
             if (e.CurrentProgress > 0 && e.MaximumProgress > 0)
             {
                 toolStripProgressBar1.Value = (int)(e.CurrentProgress * 100 / (int)e.MaximumProgress);
+                if (toolStripProgressBar1.Value < 100)
+                {
+                    toolStripStatusLabel1.Text = "Loading...";
+                }
+                else
+                {
+                      toolStripStatusLabel1.Text = "Done";
+
+                }
             }
         }
     }
